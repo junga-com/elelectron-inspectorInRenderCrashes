@@ -1,3 +1,27 @@
+# Minimal example for Bug
+
+When the node inspector module is used in a renderer process it crashes the process with a failed assertion. This code is at the top of preload.js and causes the render process to crash immediately upon starting. 
+```
+const inspector = require('inspector');
+const session = new inspector.Session();
+session.connect();  //!!! crash: ... Assertion `(client_) != nullptr' failed.
+``` 
+
+This is the error
+```
+../../third_party/electron_node/src/inspector_agent.cc:824:std::unique_ptr<InspectorSession> node::inspector::Agent::Connect(std::unique_ptr<InspectorSessionDelegate>, bool): Assertion `(client_) != nullptr' failed.
+```
+
+I came across this bug when I created a node repl in the renderer process that uses the tty device of the launching terminal.  If you
+comment out the session.connect() line at the top of preload.js the repl will run and work properly until you press tab on the fist
+word where the completion function uses inspector to get the names of the lexical scoped 'global' variables available to the repl.
+
+
+
+
+
+
+
 # electron-quick-start
 
 **Clone and run for a quick way to see Electron in action.**
