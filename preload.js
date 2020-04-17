@@ -2,7 +2,7 @@
 // this block is fine in the main process but crashes the renderer. I has the same error when its in renderer.js
 const inspector = require('inspector');
 const session = new inspector.Session();
-session.connect();  //!!! crash: ... assert: '(client_) != nullptr'
+//session.connect();  //!!! crash: ... assert: '(client_) != nullptr'
 // ../../third_party/electron_node/src/inspector_agent.cc:824:std::unique_ptr<InspectorSession> node::inspector::Agent::Connect(std::unique_ptr<InspectorSessionDelegate>, bool): Assertion `(client_) != nullptr' failed.
 
 
